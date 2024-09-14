@@ -1,0 +1,23 @@
+# In terminal 
+# cd conda
+# conda env create -f crypto_anomalies.yaml
+# pip list --format=freeze > requirements.txt
+name: crypto_anomalies
+channels:
+  - anaconda
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - ipykernel
+  - cudatoolkit=11.2
+  - cudnn=8.1.0
+  - pip:
+    - pandas
+    - requests
+    - numpy==1.23.5
+    - tensorflow==2.10
+    - scikit-optimize
+    - python-dotenv
+    - yfinance
