@@ -21,3 +21,5 @@ dependencies:
     - scikit-optimize
     - python-dotenv
     - yfinance
+    - matplotlib
+    - seaborn
