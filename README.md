@@ -8,6 +8,8 @@ This project predicts anomalies in cryptocurrency markets using machine learning
 - [Code Directory](#code-directory)
 - [Dataset Acquisition](#dataset-acquisition)
 - [Dataset Construction](#dataset-construction)
+- [Technical Indicators Integration](#technical-indicators-integration)
+- [Data Visualization](#data-visualization)
 
 
 ### Code directory
@@ -109,7 +111,68 @@ Below is an example of how to execute the `dataset_construction.py` script from 
 - --threshold: Percentage threshold for anomaly detection (e.g., 1.0 for 1% price variation).
 - --shift_hours: Number of hours to shift the anomaly labels backward (e.g., 4).
 
+## Technical Indicators Integration
 
+After constructing and labeling our dataset, we enhance it by integrating various technical analysis indicators commonly used in trading. These indicators help capture market trends and momentum, providing additional features for our anomaly detection models.
+
+### Python Script: integrate_indicators.py
+
+We created a Python script `integrate_indicators.py` that processes each cryptocurrency CSV file and calculates technical indicators using the [pandas_ta](https://github.com/twopirllc/pandas-ta?tab=readme-ov-file) library.
+
+**Calculated Indicators**
+- Simple Moving Average (SMA): Periods of 5, 12, 13, 14, 20, 21, 26, 30, 50, 100, 200
+- Exponential Moving Average (EMA): Same periods as SMA
+- Moving Average Convergence Divergence (MACD)
+- Relative Strength Index (RSI): Same periods as SMA
+- Momentum (MOM)
+- Chande Momentum Oscillator (CMO): Same periods as SMA
+- Ultimate Oscillator (UO)
+- Bollinger Bands (BBANDS)
+- Volume Weighted Average Price (VWAP)
+
+#### Script execution
+
+```bash
+    python src/integrate_indicators.py --input_folder data/processed --output_folder data/with_indicators
+```
+
+- --input_folder: Path to the folder containing the processed CSV files.
+- --output_folder: Path where the updated CSV files with technical indicators will be saved.
+
+### Handling Missing Values
+
+Due to the nature of technical indicators, some initial rows in the dataset may have missing values (`NaN`) because the indicators require a certain number of periods to calculate their initial values. To handle these missing values, we drop the initial rows where the indicators cannot be computed.
+
+## Data Visualization
+
+To gain insights from the integrated technical indicators, we plotted several indicators alongside the Bitcoin price to understand their behavior and potential signals.
+
+### Momentum (MOM) Plot
+
+We plotted the Momentum (MOM) indicator alongside the Bitcoin close price to observe how momentum correlates with price movements.
+
+
+![MOM BTC](images/MOM_BTC.png)
+
+Momentum (MOM): Positive values indicate upward momentum, while negative values indicate downward momentum. Divergences between MOM and price can signal potential reversals.
+
+### Chande Momentum Oscillator (CMO) Plot
+
+We plotted the Chande Momentum Oscillator (CMO) with a period of 14 alongside the Bitcoin close price to identify overbought and oversold conditions.
+
+
+![CMO14_BTC](images/CMO14_BTC.png)
+
+Chande Momentum Oscillator (CMO): Values above +50 may indicate overbought conditions; values below -50 may indicate oversold conditions.
+
+### Ultimate Oscillator (UO) Plot
+
+We plotted the Ultimate Oscillator (UO) alongside the Bitcoin close price to detect potential trend reversals based on multiple timeframes.
+
+
+![UO_BTC](images/UO_BTC_with_anomalies.png)
+
+Ultimate Oscillator (UO): Values above 70 suggest overbought conditions; values below 30 suggest oversold conditions. Divergences can signal trend reversals.
 
 ## Contributing
 
