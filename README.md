@@ -174,6 +174,35 @@ We plotted the Ultimate Oscillator (UO) alongside the Bitcoin close price to det
 
 Ultimate Oscillator (UO): Values above 70 suggest overbought conditions; values below 30 suggest oversold conditions. Divergences can signal trend reversals.
 
+## Data Transformation and Normalization
+
+After integrating technical indicators, the next step is to transform and normalize the dataset to prepare it for machine learning algorithms, particularly deep learning models.
+
+- **Compute Percent Variations**: For each feature (excluding certain columns), compute the percent variation of every row with respect to the previous one and add these as new features.
+
+- **Normalize the Dataset**: Use Robust Scaling to normalize both the original features and the percent variation features.
+
+### Python script
+
+We created a Python script `data_transformation.py` to automate this process.
+
+1. Compute Percent Variations: The script computes the percent variation for each feature with respect to the previous row and adds these as new columns with the suffix `_pct_change`.
+
+2. Normalize Data Using Robust Scaling: Both the original features and the percent variation features are normalized using the `RobustScaler` from `scikit-learn`.
+
+```bash
+    python src/data_transformation.py --input_folder data/with_indicators --output_folder data/transformed
+```
+
+- -- input_folder: Path to the folder containing the CSV files with technical indicators.
+- -- output_folder: Path where the transformed CSV files will be saved.
+
+#### Rationale for Using Robust Scaling
+
+- Robust to Outliers: Cryptocurrency data often contains outliers due to high volatility. Robust Scaling uses the median and interquartile range, reducing the influence of outliers.
+- Preservation of Anomalies: Anomalies remain detectable after scaling, which is essential for anomaly detection models.
+- No Assumptions about Data Distribution: Unlike methods like z-score normalization, Robust Scaling does not assume a normal distribution.
+
 ## Contributing
 
 If you want to contribute to this project, please fork the repository and submit a pull request. For major changes, please open an issue first to discuss what you would like to change.
