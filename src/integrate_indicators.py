@@ -2,8 +2,8 @@
 Script: Technical Indicators and Sentiment Integration for Cryptocurrency Data
 
 Description:
-This script processes cryptocurrency data CSV files, calculates various technical indicators, fetches the Fear & Greed Index sentiment data, and integrates both into the existing CSV files.
-The updated CSV files will contain new columns for each technical indicator and the sentiment index.
+This script processes cryptocurrency data CSV files, calculates various technical indicators and integrates them into the existing CSV files.
+The updated CSV files will contain new columns for each technical indicator.
 
 Requirements:
 A conda environment is required to run this script. You can create a new conda environment by running the following command:
