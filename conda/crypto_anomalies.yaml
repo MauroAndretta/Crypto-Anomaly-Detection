@@ -24,3 +24,4 @@ dependencies:
     - matplotlib
     - seaborn
     - pandas_ta
+    - scikit-learn-extra
